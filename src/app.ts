@@ -43,7 +43,8 @@ import { authFlow, handleCallback } from "./db/controllers/authController";
 
 const app = express();
 
-const { PORT = 3000 } = process.env;
+const PORT = process.env.PORT || 3000;
+const HOST = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
 
 app.use(cors());
 
@@ -113,7 +114,7 @@ app.use(handleServerErrors);
 
 if (process.env.NODE_ENV !== "test") {
   app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on http://${HOST}:${PORT}`);
   });
 }
 
