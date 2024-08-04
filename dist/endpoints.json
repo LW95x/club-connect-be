@@ -1,0 +1,428 @@
+{
+  "GET /api": {
+    "description": "Provides a description of all other available endpoints."
+  },
+  "GET /api/fans/:fanId": {
+    "description": "Get fan data by ID",
+    "exampleRequestBody": "N/A",
+    "exampleResponse": [
+      {
+        "fan_id": 1,
+        "username": "billybob",
+        "password": "$2b$10$EP.aaMLaRLlKswrW0cNb6u9wpra2hLX0ZAYdMjEgAfDDU0GO45A1i",
+        "date_of_birth": "1990-02-11T00:00:00.000Z",
+        "address": "46, Regent Street, Greater London, W1B 5TH",
+        "email": "billybob@hotmail.com",
+        "phone_number": "+447842233197"
+      }
+    ]
+  },
+  "GET /api/fans": {
+    "description": "Get all fans data",
+    "exampleRequestBody": "N/A",
+    "exampleResponse": [
+      {
+        "fan_id": 1,
+        "username": "billybob",
+        "password": "$2b$10$EP.aaMLaRLlKswrW0cNb6u9wpra2hLX0ZAYdMjEgAfDDU0GO45A1i",
+        "date_of_birth": "1990-02-11T00:00:00.000Z",
+        "address": "46, Regent Street, Greater London, W1B 5TH",
+        "email": "billybob@hotmail.com",
+        "phone_number": "+447842233197"
+      }
+    ]
+  },
+  "GET /api/clubs": {
+    "description": "Get all clubs data",
+    "exampleRequestBody": "N/A",
+    "exampleResponse": [
+      {
+        "club_id": 6,
+        "username": "bilstontown",
+        "password": "$2b$10$sERPNBhN4xyjAr2JhRRZlOjkhct2so4DuERmx9ZwiU3onzIq2FO.C",
+        "club_name": "Bilston Town F.C.",
+        "league": "National League North",
+        "location": "62 Queen St, Bilston WV14 7EX",
+        "stadium_capacity": 500,
+        "email": "bilstontown@hotmail.co.uk",
+        "phone_number": "+445214527767",
+        "website": "https://www.bilston-town.co.uk",
+        "facebook": "",
+        "twitter": ""
+      }
+    ]
+  },
+  "GET /api/clubs/:clubId": {
+    "description": "Get club data by ID",
+    "exampleRequestBody": "N/A",
+    "exampleResponse": [
+      {
+        "club_id": 6,
+        "username": "bilstontown",
+        "password": "$2b$10$sERPNBhN4xyjAr2JhRRZlOjkhct2so4DuERmx9ZwiU3onzIq2FO.C",
+        "club_name": "Bilston Town F.C.",
+        "league": "National League North",
+        "location": "62 Queen St, Bilston WV14 7EX",
+        "stadium_capacity": 500,
+        "email": "bilstontown@hotmail.co.uk",
+        "phone_number": "+445214527767",
+        "website": "https://www.bilston-town.co.uk",
+        "facebook": "",
+        "twitter": ""
+      }
+    ]
+  },
+  "GET /api/events/:eventId": {
+    "description": "Get event data by ID",
+    "exampleRequestBody": "N/A",
+    "exampleResponse": [
+      {
+        "event_id": 1,
+        "home_club_id": 5,
+        "title": "Bath City vs. Maidstone United",
+        "location": "Twerton Park, 105 High St, Twerton, Bath, BA2 1DB",
+        "price": "10.00",
+        "date_time": "2024-09-21T13:00:00.000Z",
+        "description": "A derby between local rivals, get yourselves down to Twerton Park for this huge encounter.",
+        "available_tickets": 8000
+      }
+    ]
+  },
+  "GET /api/events": {
+    "description": "Get all events data",
+    "exampleRequestBody": "N/A",
+    "exampleResponse": [
+      {
+        "event_id": 1,
+        "home_club_id": 5,
+        "title": "Bath City vs. Maidstone United",
+        "location": "Twerton Park, 105 High St, Twerton, Bath, BA2 1DB",
+        "price": "10.00",
+        "date_time": "2024-09-21T13:00:00.000Z",
+        "description": "A derby between local rivals, get yourselves down to Twerton Park for this huge encounter.",
+        "available_tickets": 8000
+      }
+    ]
+  },
+  "GET /api/clubs/:clubId/events": {
+    "description": "Get all events data by Club ID",
+    "exampleRequestBody": "N/A",
+    "exampleResponse": [
+      {
+        "event_id": 1,
+        "home_club_id": 5,
+        "title": "Bath City vs. Maidstone United",
+        "location": "Twerton Park, 105 High St, Twerton, Bath, BA2 1DB",
+        "price": "10.00",
+        "date_time": "2024-09-21T13:00:00.000Z",
+        "description": "A derby between local rivals, get yourselves down to Twerton Park for this huge encounter.",
+        "available_tickets": 8000
+      }
+    ]
+  },
+  "GET /api/fans/:fanId/orders/:orderId": {
+    "description": "Get order data by Fan ID and Order ID",
+    "exampleRequestBody": "N/A",
+    "exampleResponse": [
+      {
+        "order_id": 1,
+        "user_id": 1,
+        "event_id": 1,
+        "order_date": "2024-09-20T15:55:00.000Z",
+        "quantity": 2,
+        "total_price": "20.00",
+        "order_status": "Pending"
+      }
+    ]
+  },
+  "GET /api/fans/:fanId/orders": {
+    "description": "Get all orders data by Fan ID",
+    "exampleRequestBody": "N/A",
+    "exampleResponse": [
+      {
+        "order_id": 1,
+        "user_id": 1,
+        "event_id": 1,
+        "order_date": "2024-09-20T15:55:00.000Z",
+        "quantity": 2,
+        "total_price": "20.00",
+        "order_status": "Pending"
+      }
+    ]
+  },
+  "POST /api/fans/register": {
+    "description": "Register a new fan",
+    "exampleRequestBody": [
+      {
+        "username": "stringyman556",
+        "password": "Stringy-123",
+        "date_of_birth": "1974-11-05",
+        "address": "24, Tauren Lane, Manchester, England, M13 0FZ",
+        "email": "user12345555@hotmail.com",
+        "phone_number": "+44712245866319"
+      }
+    ],
+    "exampleResponse": [
+        {
+            "fan_id": 4,
+            "username": "stringyman556",
+            "password": "$2b$10$EP.aaMLaRLlKswrW0cNb6u9wpra2hLX0ZAYdMjEgAfDDU0GO45A1i",
+            "date_of_birth": "1974-11-05T00:00:00.000Z",
+            "address": "24, Tauren Lane, Manchester, England, M13 0FZ",
+            "email": "user12345555@hotmail.com",
+            "phone_number": "+44712245866319"
+        }
+    ]
+  },
+  "POST /api/clubs/register": {
+    "description": "Register a new club",
+    "exampleRequestBody": [
+        {
+            "username": "billingstontown",
+            "password": "Bilstonfc-123",
+            "club_name": "Bilston Town F.C.",
+            "league": "National League North",
+            "location": "62 Queen St, Bilston WV14 7EX",
+            "stadium_capacity": 500,
+            "email": "bilstontown@hotmail.co.uk",
+            "phone_number": "+445214527767",
+            "website": "https://www.bilston-town.co.uk"
+          }
+    ],
+    "exampleResponse": [
+        {
+            "club_id": 8,
+            "username": "billingstontown",
+            "password": "$2b$10$foTrT8Jm9HYPbEUeNqfL3OwBQJlrofQbSAU6ypq10V8W7UgjhDnMO",
+            "club_name": "Bilston Town F.C.",
+            "league": "National League North",
+            "location": "62 Queen St, Bilston WV14 7EX",
+            "stadium_capacity": 500,
+            "email": "bilstontown@hotmail.co.uk",
+            "phone_number": "+445214527767",
+            "website": "https://www.bilston-town.co.uk",
+            "facebook": "",
+            "twitter": ""
+        }
+    ]
+  },
+  "POST /api/clubs/:clubId/events": {
+    "description": "Create a new event by Club ID",
+    "exampleRequestBody": [
+        {
+            "title": "Wealdstone F.C. vs Bilston Town F.C.",
+            "location": "Grosvenor Vale, Ruislip, West London, HA4 6JQ",
+            "price": 10,
+            "date_time": "2024-10-15T12:00:00",
+            "description": "A clash between two top half contenders",
+            "available_tickets": 6500
+        }
+    ],
+    "exampleResponse": [
+        {
+            "event_id": 6,
+            "home_club_id": 1,
+            "title": "Wealdstone F.C. vs Bilston Town F.C.",
+            "location": "Grosvenor Vale, Ruislip, West London, HA4 6JQ",
+            "price": "10.00",
+            "date_time": "2024-10-15T11:00:00.000Z",
+            "description": "A clash between two top half contenders",
+            "available_tickets": 6500
+        }
+    ]
+  },
+  "POST /api/fans/:fanId/orders": {
+    "description": "Create a new order by Fan ID",
+    "exampleRequestBody": [
+        {
+            "event_id": "12",
+            "order_date": "2024-10-26T11:46:00.000Z",
+            "quantity": 1,
+            "total_price": 10,
+            "order_status": "Pending"
+        }
+    ],
+    "exampleResponse": [
+        {
+            "order_id": 1,
+            "user_id": 1,
+            "event_id": 1,
+            "order_date": "2024-09-20T15:55:00.000Z",
+            "quantity": 2,
+            "total_price": "20.00",
+            "order_status": "Pending"
+        }
+    ]
+  },
+  "POST /api/fans/login": {
+    "description": "Login as a fan - returns a JSON web token (JWT) to be used for context on the frontend.",
+    "exampleRequestBody": [
+        {
+            "username": "stringyman556",
+            "password": "Stringyman-123"
+        }
+    ],
+    "exampleResponse": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJzdHJpbmd5bWFuNTU2IiwiaWF0IjoxNzIyNTI3OTc2LCJleHAiOjE3MjI1MzE1NzZ9.tQxAOMwQKxdfBo2v1mOIejtx-PEaBzCfj1KnuMp2Uyc"
+  },
+  "POST /api/clubs/login": {
+    "description": "Login as a club - returns a JSON web token (JWT) to be used for context on the frontend.",
+    "exampleRequestBody": [
+        {
+            "username": "billingstontown",
+            "password": "Bilstonfc-123"
+        }
+    ],
+    "exampleResponse": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJzdHJpbmd5bWFuNTU2IiwiaWF0IjoxNzIyNTI3OTc2LCJleHAiOjE3MjI1MzE1NzZ9.tQxAOMwQKxdfBo2v1mOIejtx-PEaBzCfj1KnuMp2Uyc"
+  },
+  "DELETE /api/fans/:fanId": {
+    "description": "Delete an existing fan by ID",
+    "exampleRequestBody": "N/A",
+    "exampleResponse": "N/A"
+  },
+  "DELETE /api/clubs/:clubId": {
+    "description": "Delete an existing club by ID",
+    "exampleRequestBody": "N/A",
+    "exampleResponse": "N/A"
+  },
+  "DELETE /api/clubs/:clubId/events/:eventId": {
+    "description": "Delete an existing event by Club ID and Event ID",
+    "exampleRequestBody": "N/A",
+    "exampleResponse": "N/A"
+  },
+  "DELETE /api/fans/:fanId/orders/:orderId": {
+    "description": "Delete an existing order by Fan ID and Order ID",
+    "exampleRequestBody": "N/A",
+    "exampleResponse": "N/A"
+  },
+  "PATCH /api/fans/:fanId": {
+    "description": "Update an existing fan's data",
+    "availableFields": ["date_of_birth", "address", "email", "phone_number"],
+    "exampleRequestBody": [
+        {
+            "email": "billybobber123outlook.com"
+        }
+    ],
+    "exampleResponse": [
+        {
+            "fan_id": 1,
+            "username": "billybob",
+            "password": "$2b$10$foTrT8Jm9HYPbEUeNqfL3OwBQJlrofQbSAU6ypq10V8W7UgjhDnMO",
+            "date_of_birth": "1990-02-11T00:00:00.000Z",
+            "address": "46, Regent Street, Greater London, W1B 5TH",
+            "email": "billybobber123@outlook.com",
+            "phone_number": "+447842233197"
+        }
+    ]
+  },
+  "PATCH /api/clubs/:clubId": {
+    "description": "Update an existing club's data",
+    "availableFields": ["club_name", "league", "location", "stadium_capacity", "email", "phone_number", "website", "facebook", "twitter"],
+    "exampleRequestBody": [
+        {
+            "club_name": "Billingston Town F.C."
+        }
+    ],
+    "exampleResponse": [
+        {
+            "club_id": 8,
+            "username": "billingstontown",
+            "password": "$2b$10$foTrT8Jm9HYPbEUeNqfL3OwBQJlrofQbSAU6ypq10V8W7UgjhDnMO",
+            "club_name": "Billingston Town F.C.",
+            "league": "National League North",
+            "location": "62 Queen St, Bilston WV14 7EX",
+            "stadium_capacity": 500,
+            "email": "bilstontown@hotmail.co.uk",
+            "phone_number": "+445214527767",
+            "website": "https://www.bilston-town.co.uk",
+            "facebook": "",
+            "twitter": ""
+        }
+    ]
+  },
+  "PATCH /api/fans/:fanId/change-password": {
+    "description": "Update an existing fan's password",
+    "exampleRequestBody": [
+        {
+            "current_password": "Password-55",
+            "new_password": "Stringyman-123"
+        }
+    ],
+    "exampleResponse": [
+        {
+            "fan_id": 4,
+            "username": "stringyman556",
+            "password": "$2b$10$EP.aaMLaRLlKswrW0cNb6u9wpra2hLX0ZAYdMjEgAfDDU0GO45A1i",
+            "date_of_birth": "1974-11-05T00:00:00.000Z",
+            "address": "24, Tauren Lane, Manchester, England, M13 0FZ",
+            "email": "user12345555@hotmail.com",
+            "phone_number": "+44712245866319"
+        }
+    ]
+  },
+  "PATCH /api/clubs/:clubId/change-password": {
+    "description": "Update an existing club's password",
+    "exampleRequestBody": [
+        {
+            "current_password": "Stringyman-123",
+            "new_password": "BilstonTown-123"
+        }
+    ],
+    "exampleResponse": [
+        {
+            "club_id": 6,
+            "username": "bilstontown",
+            "password": "$2b$10$sERPNBhN4xyjAr2JhRRZlOjkhct2so4DuERmx9ZwiU3onzIq2FO.C",
+            "club_name": "Bilston Town F.C.",
+            "league": "National League North",
+            "location": "62 Queen St, Bilston WV14 7EX",
+            "stadium_capacity": 500,
+            "email": "bilstontown@hotmail.co.uk",
+            "phone_number": "+445214527767",
+            "website": "https://www.bilston-town.co.uk",
+            "facebook": "",
+            "twitter": ""
+        }
+    ]
+  },
+  "PATCH /api/clubs/:clubId/events/:eventId": {
+    "description": "Update an existing event's data",
+    "availableFields": ["title", "location", "price", "date_time", "description", "available_tickets"],
+    "exampleRequestBody": [
+        {
+            "price": 15
+        }
+    ],
+    "exampleResponse": [
+        {
+            "event_id": 6,
+            "home_club_id": 1,
+            "title": "Wealdstone F.C. vs Bilston Town F.C.",
+            "location": "Grosvenor Vale, Ruislip, West London, HA4 6JQ",
+            "price": "15.00",
+            "date_time": "2024-10-15T11:00:00.000Z",
+            "description": "A clash between two top half contenders",
+            "available_tickets": 6500
+        }
+    ]
+  },
+  "PATCH /api/fans/:fanId/orders/:orderId": {
+    "description": "Update an existing order's data",
+    "availableFields": ["quantity", "total_price", "order_status"],
+    "exampleRequestBody": [
+        {
+            "order_status": "Completed"
+        }
+    ],
+    "exampleResponse": [
+        {
+            "order_id": 3,
+            "user_id": 3,
+            "event_id": 5,
+            "order_date": "2025-05-05T09:25:07.000Z",
+            "quantity": 3,
+            "total_price": "90.00",
+            "order_status": "Completed"
+        }
+    ]
+  }
+}

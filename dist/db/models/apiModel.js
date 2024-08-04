@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.findApi = void 0;
 const promises_1 = __importDefault(require("fs/promises"));
 const findApi = () => {
+    const filePath = `${__dirname}/../../endpoints.json`;
+    console.log('Attempting to read file at path:', filePath);
     return promises_1.default.readFile(`${__dirname}/../../endpoints.json`, 'utf-8')
         .then((data) => {
         const parsedEndpoints = JSON.parse(data);
