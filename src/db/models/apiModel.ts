@@ -9,5 +9,3 @@ export const findApi = () => {
         return parsedEndpoints;
     })
 }
-
-/home/lw95/ts-events-platform/src/endpoints.json
