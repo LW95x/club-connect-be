@@ -1,13 +1,14 @@
 {
   "name": "ts-events-platform",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "dist/app.js",
   "scripts": {
-    "test": "NODE_ENV=test psql -f ./src/db/setup.sql && node --max-old-space-size=4096 ./node_modules/.bin/jest integration.test.ts",
-    "start": "ts-node src/app.ts",
+    "test": "NODE_ENV=test psql -f ./src/db/setup.sql && jest",
+    "start": "node dist/app.js",
     "build": "tsc",
-    "prod": "NODE_ENV=production npm run start",
+    "prod": "NODE_ENV=production npm run build && npm run start",
     "seed": "ts-node src/db/seed/run-seed.ts",
+    "seed-prod": "NODE_ENV=production node dist/db/seed/run-seed.js",
     "docs": "node src/swagger.mjs"
   },
   "keywords": [],

@@ -1,0 +1,56 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
+const errors_1 = require("./db/errors");
+const fansController_1 = require("./db/controllers/fansController");
+const clubsController_1 = require("./db/controllers/clubsController");
+const eventsController_1 = require("./db/controllers/eventsController");
+const ordersController_1 = require("./db/controllers/ordersController");
+const apiController_1 = require("./db/controllers/apiController");
+const authController_1 = require("./db/controllers/authController");
+const app = (0, express_1.default)();
+const PORT = process.env.PORT || 3000;
+const HOST = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
+app.use((0, cors_1.default)());
+app.use(express_1.default.json());
+app.get("/api", apiController_1.getApi);
+app.get("/api/fans/:fanId", fansController_1.getFanById);
+app.get("/api/fans", fansController_1.getFans);
+app.get("/api/clubs/:clubId", clubsController_1.getClubById);
+app.get("/api/clubs", clubsController_1.getClubs);
+app.get("/api/events/:eventId", eventsController_1.getEventById);
+app.get("/api/events", eventsController_1.getEvents);
+app.get("/api/clubs/:clubId/events", eventsController_1.getEventsByClubId);
+app.get("/api/fans/:fanId/orders/:orderId", ordersController_1.getOrderById);
+app.get("/api/fans/:fanId/orders", ordersController_1.getAllOrders);
+app.post("/api/fans/register", fansController_1.registerFan);
+app.delete("/api/fans/:fanId", fansController_1.deleteFan);
+app.post("/api/clubs/register", clubsController_1.registerClub);
+app.delete("/api/clubs/:clubId", clubsController_1.deleteClub);
+app.post("/api/clubs/:clubId/events", eventsController_1.postEvent);
+app.delete("/api/clubs/:clubId/events/:eventId", eventsController_1.deleteEvent);
+app.post("/api/fans/:fanId/orders", ordersController_1.postOrder);
+app.delete("/api/fans/:fanId/orders/:orderId", ordersController_1.deleteOrder);
+app.patch("/api/fans/:fanId", fansController_1.patchFan);
+app.patch("/api/fans/:fanId/change-password", fansController_1.patchFanPassword);
+app.patch("/api/clubs/:clubId", clubsController_1.patchClub);
+app.patch("/api/clubs/:clubId/change-password", clubsController_1.patchClubPassword);
+app.patch("/api/clubs/:clubId/events/:eventId", eventsController_1.patchEvent);
+app.patch("/api/fans/:fanId/orders/:orderId", ordersController_1.patchOrder);
+app.post("/api/fans/login", fansController_1.loginFan);
+app.post("/api/clubs/login", clubsController_1.loginClub);
+app.get("/api/auth", authController_1.authFlow);
+app.get("/api/callback", authController_1.handleCallback);
+app.use(errors_1.handleCustomErrors);
+app.use(errors_1.handlePsqlErrors);
+app.use(errors_1.handleServerErrors);
+if (process.env.NODE_ENV !== "test") {
+    app.listen(PORT, () => {
+        console.log(`Server is running on http://${HOST}:${PORT}`);
+    });
+}
+exports.default = app;

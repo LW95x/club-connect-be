@@ -32,8 +32,6 @@ export const handlePsqlErrors = (
   res: Response,
   next: NextFunction
 ) => {
-  console.error('Error details:', err);
-
   if (err.code === "22P02" || err.code === "23503" || err.code === "23502") {
     res.status(400).send({ msg: "Bad request", error: err.message });
   } else {
@@ -47,6 +45,5 @@ export const handleServerErrors = (
   res: Response,
   next: NextFunction
 ) => {
-  console.log(err);
   res.status(500).send({ msg: "Internal Server Error" });
 };
