@@ -32,14 +32,13 @@ const findEventsByClubId = (clubId) => {
     return connection_1.default
         .query(`SELECT * FROM events e WHERE e.home_club_id = $1`, [clubId])
         .then(({ rows }) => {
-        const clubEvents = rows[0];
-        if (!clubEvents) {
+        if (rows.length === 0) {
             return Promise.reject({
                 status: 404,
                 msg: "This Club ID does not exist.",
             });
         }
-        return clubEvents;
+        return rows;
     });
 };
 exports.findEventsByClubId = findEventsByClubId;
