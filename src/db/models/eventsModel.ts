@@ -30,16 +30,14 @@ export const findEventsByClubId = (clubId: string) => {
   return db
     .query(`SELECT * FROM events e WHERE e.home_club_id = $1`, [clubId])
     .then(({ rows }) => {
-      const clubEvents = rows[0];
-
-      if (!clubEvents) {
+      if (rows.length === 0) {
         return Promise.reject({
           status: 404,
           msg: "This Club ID does not exist.",
         });
       }
 
-      return clubEvents;
+      return rows;
     });
 };
 
