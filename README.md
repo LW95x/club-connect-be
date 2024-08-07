@@ -19,3 +19,5 @@ https://github.com/LW95x/the_football_pyramid_backend/
 - Local Hosting Instructions: You will need to run the script ```npm run start```
 
 - Testing Instructions: You will need to run the script ```npm run test```
+
+ClubConnect frontend: https://github.com/LW95x/club-connect-fe/
