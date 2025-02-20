@@ -5,6 +5,7 @@ import { findEventById } from "./eventsModel";
 import { findFanById } from "./fansModel";
 import { google } from "googleapis";
 import { OAuth2Client } from "google-auth-library";
+import Stripe from "stripe";
 
 const calendar = google.calendar("v3");
 
@@ -13,6 +14,8 @@ const oAuth2Client = new OAuth2Client(
   process.env.GOOGLE_CLIENT_SECRET,
   process.env.GOOGLE_REDIRECT_URI
 );
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export const findAllOrders = (fanId: string) => {
   return findFanById(fanId).then((fan) => {
@@ -87,50 +90,68 @@ export const addOrder = (fanId: string, newOrder: NewOrder, token: string) => {
         });
       }
 
-      const { event_id, order_date, quantity, total_price, order_status, add_to_calendar } =
-        newOrder;
+      const {
+        event_id,
+        order_date,
+        quantity,
+        total_price,
+        order_status,
+        add_to_calendar,
+      } = newOrder;
 
-      return db
-        .query(
-          `INSERT INTO orders (user_id, event_id, order_date, quantity, total_price, order_status) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;`,
-          [fanId, event_id, order_date, quantity, total_price, order_status]
-        )
-        .then(({ rows }) => {
-          const newOrder = rows[0];
+      return createPaymentIntent(total_price).then(
+        ({ paymentIntentId, clientSecret }) => {
+          return db
+            .query(
+              `INSERT INTO orders (user_id, event_id, order_date, quantity, total_price, order_status, payment_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;`,
+              [
+                fanId,
+                event_id,
+                order_date,
+                quantity,
+                total_price,
+                order_status,
+                paymentIntentId,
+              ]
+            )
+            .then(({ rows }) => {
+              const newOrder = rows[0];
 
-          if (add_to_calendar) {
-            const eventDetails = {
-              summary: event.title,
-              location: event.location,
-              description: event.description,
-              start: {
-                dateTime: new Date(event.date_time).toISOString(),
-                timeZone: "Europe/London",
-              },
-              end: {
-                dateTime: new Date(
-                  new Date(event.date_time).getTime() + 10800000
-                ).toISOString(),
-                timeZone: "Europe/London",
-              },
-            };
+              if (add_to_calendar) {
+                const eventDetails = {
+                  summary: event.title,
+                  location: event.location,
+                  description: event.description,
+                  start: {
+                    dateTime: new Date(event.date_time).toISOString(),
+                    timeZone: "Europe/London",
+                  },
+                  end: {
+                    dateTime: new Date(
+                      new Date(event.date_time).getTime() + 10800000
+                    ).toISOString(),
+                    timeZone: "Europe/London",
+                  },
+                };
 
-            const authClient = new google.auth.OAuth2();
-            authClient.setCredentials({ access_token: token });
+                const authClient = new google.auth.OAuth2();
+                authClient.setCredentials({ access_token: token });
 
-            return calendar.events
-              .insert({
-                auth: authClient,
-                calendarId: "primary",
-                requestBody: eventDetails,
-              })
-              .then(() => {
-                return newOrder;
-              });
-          }
+                return calendar.events
+                  .insert({
+                    auth: authClient,
+                    calendarId: "primary",
+                    requestBody: eventDetails,
+                  })
+                  .then(() => {
+                    return { order: newOrder, clientSecret };
+                  });
+              }
 
-          return newOrder;
-        });
+              return { order: newOrder, clientSecret };
+            });
+        }
+      );
     });
   });
 };
@@ -214,4 +235,17 @@ export const editOrder = (
       });
     });
   });
+};
+
+export const createPaymentIntent = async (amount: number) => {
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: amount * 100,
+    currency: "gbp",
+    metadata: { description: "ClubConnect Match Ticket Purchase" },
+  });
+
+  return {
+    paymentIntentId: paymentIntent.id,
+    clientSecret: paymentIntent.client_secret,
+  };
 };

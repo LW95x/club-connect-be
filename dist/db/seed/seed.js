@@ -63,7 +63,8 @@ const seed = ({ eventsData, clubsData, fansData, ordersData }) => {
         order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, 
         quantity INT NOT NULL, 
         total_price DECIMAL(10,2) NOT NULL, 
-        order_status VARCHAR(50) NOT NULL
+        order_status VARCHAR(50) NOT NULL,
+        payment_id VARCHAR(255) NULL
         );`);
     })
         .then(() => {
