@@ -1,17 +1,28 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.editOrder = exports.removeOrder = exports.addOrder = exports.findOrderById = exports.findAllOrders = void 0;
+exports.createPaymentIntent = exports.editOrder = exports.removeOrder = exports.addOrder = exports.findOrderById = exports.findAllOrders = void 0;
 const schemas_1 = require("../../helpers/schemas");
 const connection_1 = __importDefault(require("../connection"));
 const eventsModel_1 = require("./eventsModel");
 const fansModel_1 = require("./fansModel");
 const googleapis_1 = require("googleapis");
 const google_auth_library_1 = require("google-auth-library");
+const stripe_1 = __importDefault(require("stripe"));
 const calendar = googleapis_1.google.calendar("v3");
 const oAuth2Client = new google_auth_library_1.OAuth2Client(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET, process.env.GOOGLE_REDIRECT_URI);
+const stripe = new stripe_1.default(process.env.STRIPE_SECRET_KEY);
 const findAllOrders = (fanId) => {
     return (0, fansModel_1.findFanById)(fanId).then((fan) => {
         if (!fan) {
@@ -74,38 +85,48 @@ const addOrder = (fanId, newOrder, token) => {
                     details: error.details,
                 });
             }
-            const { event_id, order_date, quantity, total_price, order_status, add_to_calendar } = newOrder;
-            return connection_1.default
-                .query(`INSERT INTO orders (user_id, event_id, order_date, quantity, total_price, order_status) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;`, [fanId, event_id, order_date, quantity, total_price, order_status])
-                .then(({ rows }) => {
-                const newOrder = rows[0];
-                if (add_to_calendar) {
-                    const eventDetails = {
-                        summary: event.title,
-                        location: event.location,
-                        description: event.description,
-                        start: {
-                            dateTime: new Date(event.date_time).toISOString(),
-                            timeZone: "Europe/London",
-                        },
-                        end: {
-                            dateTime: new Date(new Date(event.date_time).getTime() + 10800000).toISOString(),
-                            timeZone: "Europe/London",
-                        },
-                    };
-                    const authClient = new googleapis_1.google.auth.OAuth2();
-                    authClient.setCredentials({ access_token: token });
-                    return calendar.events
-                        .insert({
-                        auth: authClient,
-                        calendarId: "primary",
-                        requestBody: eventDetails,
-                    })
-                        .then(() => {
-                        return newOrder;
-                    });
-                }
-                return newOrder;
+            const { event_id, order_date, quantity, total_price, order_status, add_to_calendar, } = newOrder;
+            return (0, exports.createPaymentIntent)(total_price).then(({ paymentIntentId, clientSecret }) => {
+                return connection_1.default
+                    .query(`INSERT INTO orders (user_id, event_id, order_date, quantity, total_price, order_status, payment_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;`, [
+                    fanId,
+                    event_id,
+                    order_date,
+                    quantity,
+                    total_price,
+                    order_status,
+                    paymentIntentId,
+                ])
+                    .then(({ rows }) => {
+                    const newOrder = rows[0];
+                    if (add_to_calendar) {
+                        const eventDetails = {
+                            summary: event.title,
+                            location: event.location,
+                            description: event.description,
+                            start: {
+                                dateTime: new Date(event.date_time).toISOString(),
+                                timeZone: "Europe/London",
+                            },
+                            end: {
+                                dateTime: new Date(new Date(event.date_time).getTime() + 10800000).toISOString(),
+                                timeZone: "Europe/London",
+                            },
+                        };
+                        const authClient = new googleapis_1.google.auth.OAuth2();
+                        authClient.setCredentials({ access_token: token });
+                        return calendar.events
+                            .insert({
+                            auth: authClient,
+                            calendarId: "primary",
+                            requestBody: eventDetails,
+                        })
+                            .then(() => {
+                            return { order: newOrder, clientSecret };
+                        });
+                    }
+                    return { order: newOrder, clientSecret };
+                });
             });
         });
     });
@@ -177,3 +198,15 @@ const editOrder = (fanId, orderId, updatedFields) => {
     });
 };
 exports.editOrder = editOrder;
+const createPaymentIntent = (amount) => __awaiter(void 0, void 0, void 0, function* () {
+    const paymentIntent = yield stripe.paymentIntents.create({
+        amount: amount * 100,
+        currency: "gbp",
+        metadata: { description: "ClubConnect Match Ticket Purchase" },
+    });
+    return {
+        paymentIntentId: paymentIntent.id,
+        clientSecret: paymentIntent.client_secret,
+    };
+});
+exports.createPaymentIntent = createPaymentIntent;

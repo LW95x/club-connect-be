@@ -29,9 +29,10 @@ const postOrder = (req, res, next) => {
     var _a, _b;
     const fanId = req.params.fanId;
     const newOrder = req.body;
-    const token = (_b = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(' ')[1]) !== null && _b !== void 0 ? _b : '';
-    (0, ordersModel_1.addOrder)(fanId, newOrder, token).then((order) => {
-        res.status(201).send(order);
+    const token = (_b = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(" ")[1]) !== null && _b !== void 0 ? _b : "";
+    (0, ordersModel_1.addOrder)(fanId, newOrder, token)
+        .then(({ order, clientSecret }) => {
+        res.status(201).send({ order, clientSecret });
     })
         .catch((error) => {
         next(error);
@@ -41,7 +42,8 @@ exports.postOrder = postOrder;
 const deleteOrder = (req, res, next) => {
     const fanId = req.params.fanId;
     const orderId = req.params.orderId;
-    (0, ordersModel_1.removeOrder)(fanId, orderId).then((order) => {
+    (0, ordersModel_1.removeOrder)(fanId, orderId)
+        .then((order) => {
         res.status(204).send(order);
     })
         .catch((error) => {
@@ -53,7 +55,8 @@ const patchOrder = (req, res, next) => {
     const fanId = req.params.fanId;
     const orderId = req.params.orderId;
     const updatedFields = req.body;
-    (0, ordersModel_1.editOrder)(fanId, orderId, updatedFields).then((order) => {
+    (0, ordersModel_1.editOrder)(fanId, orderId, updatedFields)
+        .then((order) => {
         res.status(200).send(order);
     })
         .catch((error) => {

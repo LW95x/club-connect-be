@@ -473,15 +473,15 @@ describe("GET /api/clubs/:clubId", () => {
 describe("POST /api/clubs/register", () => {
     test("POST 201: should register a new club, and encrypt the provided password to avoid exposing passwords on the API", () => {
         const newClub = {
-            "username": "billingstontown",
-            "password": "Bilstonfc-123",
-            "club_name": "Bilston Town F.C.",
-            "league": "National League North",
-            "location": "62 Queen St, Bilston WV14 7EX",
-            "stadium_capacity": 500,
-            "email": "bilstontown@hotmail.co.uk",
-            "phone_number": "+445214527767",
-            "website": "https://www.bilston-town.co.uk"
+            username: "billingstontown",
+            password: "Bilstonfc-123",
+            club_name: "Bilston Town F.C.",
+            league: "National League North",
+            location: "62 Queen St, Bilston WV14 7EX",
+            stadium_capacity: 500,
+            email: "bilstontown@hotmail.co.uk",
+            phone_number: "+445214527767",
+            website: "https://www.bilston-town.co.uk",
         };
         return (0, supertest_1.default)(app_1.default)
             .post("/api/clubs/register")
@@ -516,15 +516,15 @@ describe("POST /api/clubs/register", () => {
     });
     test("POST 400: Password does not meet the required validation criteria's", () => {
         const newClub = {
-            "username": "billingstontown",
-            "password": "bilstonfc",
-            "club_name": "Bilston Town F.C.",
-            "league": "National League North",
-            "location": "62 Queen St, Bilston WV14 7EX",
-            "stadium_capacity": 500,
-            "email": "bilstontown@hotmail.co.uk",
-            "phone_number": "+445214527767",
-            "website": "https://www.bilston-town.co.uk"
+            username: "billingstontown",
+            password: "bilstonfc",
+            club_name: "Bilston Town F.C.",
+            league: "National League North",
+            location: "62 Queen St, Bilston WV14 7EX",
+            stadium_capacity: 500,
+            email: "bilstontown@hotmail.co.uk",
+            phone_number: "+445214527767",
+            website: "https://www.bilston-town.co.uk",
         };
         return (0, supertest_1.default)(app_1.default)
             .post("/api/clubs/register")
@@ -537,15 +537,15 @@ describe("POST /api/clubs/register", () => {
     });
     test("POST 400: Invalid input type on a field in the request body", () => {
         const newClub = {
-            "username": 554,
-            "password": "Bilstonfc-123",
-            "club_name": "Bilston Town F.C.",
-            "league": "National League North",
-            "location": "62 Queen St, Bilston WV14 7EX",
-            "stadium_capacity": 500,
-            "email": "bilstontown@hotmail.co.uk",
-            "phone_number": "+445214527767",
-            "website": "https://www.bilston-town.co.uk"
+            username: 554,
+            password: "Bilstonfc-123",
+            club_name: "Bilston Town F.C.",
+            league: "National League North",
+            location: "62 Queen St, Bilston WV14 7EX",
+            stadium_capacity: 500,
+            email: "bilstontown@hotmail.co.uk",
+            phone_number: "+445214527767",
+            website: "https://www.bilston-town.co.uk",
         };
         return (0, supertest_1.default)(app_1.default)
             .post("/api/clubs/register")
@@ -558,16 +558,16 @@ describe("POST /api/clubs/register", () => {
     });
     test("POST 201: should only post with the correct properties when foreign properties are added", () => {
         const newClub = {
-            "username": "billingstontown",
-            "password": "Bilstonfc-123",
-            "club_name": "Bilston Town F.C.",
-            "league": "National League North",
-            "location": "62 Queen St, Bilston WV14 7EX",
-            "stadium_capacity": 500,
-            "email": "bilstontown@hotmail.co.uk",
-            "phone_number": "+445214527767",
-            "website": "https://www.bilston-town.co.uk",
-            "extra_property": "banana"
+            username: "billingstontown",
+            password: "Bilstonfc-123",
+            club_name: "Bilston Town F.C.",
+            league: "National League North",
+            location: "62 Queen St, Bilston WV14 7EX",
+            stadium_capacity: 500,
+            email: "bilstontown@hotmail.co.uk",
+            phone_number: "+445214527767",
+            website: "https://www.bilston-town.co.uk",
+            extra_property: "banana",
         };
         return (0, supertest_1.default)(app_1.default)
             .post("/api/clubs/register")
@@ -582,15 +582,15 @@ describe("POST /api/clubs/register", () => {
 describe("POST /api/clubs/login", () => {
     test("POST 200: should login the club when the correct username and password are provided, and return a JWT token", () => {
         const newClub = {
-            "username": "billingstontown",
-            "password": "Bilstonfc-123",
-            "club_name": "Bilston Town F.C.",
-            "league": "National League North",
-            "location": "62 Queen St, Bilston WV14 7EX",
-            "stadium_capacity": 500,
-            "email": "bilstontown@hotmail.co.uk",
-            "phone_number": "+445214527767",
-            "website": "https://www.bilston-town.co.uk"
+            username: "billingstontown",
+            password: "Bilstonfc-123",
+            club_name: "Bilston Town F.C.",
+            league: "National League North",
+            location: "62 Queen St, Bilston WV14 7EX",
+            stadium_capacity: 500,
+            email: "bilstontown@hotmail.co.uk",
+            phone_number: "+445214527767",
+            website: "https://www.bilston-town.co.uk",
         };
         const loginRequest = {
             username: "billingstontown",
@@ -612,15 +612,15 @@ describe("POST /api/clubs/login", () => {
     });
     test("POST 401: should return an unauthorisation response when an incorrect password is passed in", () => {
         const newClub = {
-            "username": "billingstontown",
-            "password": "Bilstonfc-123",
-            "club_name": "Bilston Town F.C.",
-            "league": "National League North",
-            "location": "62 Queen St, Bilston WV14 7EX",
-            "stadium_capacity": 500,
-            "email": "bilstontown@hotmail.co.uk",
-            "phone_number": "+445214527767",
-            "website": "https://www.bilston-town.co.uk"
+            username: "billingstontown",
+            password: "Bilstonfc-123",
+            club_name: "Bilston Town F.C.",
+            league: "National League North",
+            location: "62 Queen St, Bilston WV14 7EX",
+            stadium_capacity: 500,
+            email: "bilstontown@hotmail.co.uk",
+            phone_number: "+445214527767",
+            website: "https://www.bilston-town.co.uk",
         };
         const loginRequest = {
             username: "billingstontown",
@@ -641,15 +641,15 @@ describe("POST /api/clubs/login", () => {
     });
     test("POST 404: should return a Not Found response when an invalid username is entered", () => {
         const newClub = {
-            "username": "billingstontown",
-            "password": "Bilstonfc-123",
-            "club_name": "Bilston Town F.C.",
-            "league": "National League North",
-            "location": "62 Queen St, Bilston WV14 7EX",
-            "stadium_capacity": 500,
-            "email": "bilstontown@hotmail.co.uk",
-            "phone_number": "+445214527767",
-            "website": "https://www.bilston-town.co.uk"
+            username: "billingstontown",
+            password: "Bilstonfc-123",
+            club_name: "Bilston Town F.C.",
+            league: "National League North",
+            location: "62 Queen St, Bilston WV14 7EX",
+            stadium_capacity: 500,
+            email: "bilstontown@hotmail.co.uk",
+            phone_number: "+445214527767",
+            website: "https://www.bilston-town.co.uk",
         };
         const loginRequest = {
             username: "bilstonfc",
@@ -673,15 +673,15 @@ describe("POST /api/clubs/login", () => {
 describe("PATCH /api/clubs/:clubId/change-password", () => {
     test("PATCH 200: should update to new password when provided with a valid current password", () => {
         const newClub = {
-            "username": "billingstontown",
-            "password": "Bilstonfc-123",
-            "club_name": "Bilston Town F.C.",
-            "league": "National League North",
-            "location": "62 Queen St, Bilston WV14 7EX",
-            "stadium_capacity": 500,
-            "email": "bilstontown@hotmail.co.uk",
-            "phone_number": "+445214527767",
-            "website": "https://www.bilston-town.co.uk"
+            username: "billingstontown",
+            password: "Bilstonfc-123",
+            club_name: "Bilston Town F.C.",
+            league: "National League North",
+            location: "62 Queen St, Bilston WV14 7EX",
+            stadium_capacity: 500,
+            email: "bilstontown@hotmail.co.uk",
+            phone_number: "+445214527767",
+            website: "https://www.bilston-town.co.uk",
         };
         const passwordChangeRequest = {
             current_password: "Bilstonfc-123",
@@ -729,15 +729,15 @@ describe("PATCH /api/clubs/:clubId/change-password", () => {
     });
     test("PATCH 400: New password provided did not meet the validation criteria", () => {
         const newClub = {
-            "username": "billingstontown",
-            "password": "Bilstonfc-123",
-            "club_name": "Bilston Town F.C.",
-            "league": "National League North",
-            "location": "62 Queen St, Bilston WV14 7EX",
-            "stadium_capacity": 500,
-            "email": "bilstontown@hotmail.co.uk",
-            "phone_number": "+445214527767",
-            "website": "https://www.bilston-town.co.uk"
+            username: "billingstontown",
+            password: "Bilstonfc-123",
+            club_name: "Bilston Town F.C.",
+            league: "National League North",
+            location: "62 Queen St, Bilston WV14 7EX",
+            stadium_capacity: 500,
+            email: "bilstontown@hotmail.co.uk",
+            phone_number: "+445214527767",
+            website: "https://www.bilston-town.co.uk",
         };
         const passwordChangeRequest = {
             current_password: "Bilstonfc-123",
@@ -872,15 +872,16 @@ describe("GET /api/clubs/:clubId/events", () => {
             .get("/api/clubs/1/events")
             .expect(200)
             .then(({ body }) => {
-            const event = body.events;
-            expect(event.home_club_id).toBe(1);
-            expect(typeof event.event_id).toBe("number");
-            expect(typeof event.title).toBe("string");
-            expect(typeof event.location).toBe("string");
-            expect(typeof event.price).toBe("string");
-            expect(typeof event.date_time).toBe("string");
-            expect(typeof event.description).toBe("string");
-            expect(typeof event.available_tickets).toBe("number");
+            const events = body.events;
+            const firstEvent = events[0];
+            expect(firstEvent.home_club_id).toBe(1);
+            expect(typeof firstEvent.event_id).toBe("number");
+            expect(typeof firstEvent.title).toBe("string");
+            expect(typeof firstEvent.location).toBe("string");
+            expect(typeof firstEvent.price).toBe("string");
+            expect(typeof firstEvent.date_time).toBe("string");
+            expect(typeof firstEvent.description).toBe("string");
+            expect(typeof firstEvent.available_tickets).toBe("number");
         });
     });
     test("GET 404: Not Found - Club ID does not exist", () => {
@@ -936,12 +937,12 @@ describe("GET /api/events/:eventId", () => {
 describe("POST /api/clubs/:clubId/events", () => {
     test("POST 201: should create a new event tied to the club posting", () => {
         const newEvent = {
-            "title": "Wealdstone F.C. vs Bilston Town F.C.",
-            "location": "Grosvenor Vale, Ruislip, West London, HA4 6JQ",
-            "price": 10,
-            "date_time": "2024-10-15T12:00:00",
-            "description": "A clash between two top half contenders",
-            "available_tickets": 6500
+            title: "Wealdstone F.C. vs Bilston Town F.C.",
+            location: "Grosvenor Vale, Ruislip, West London, HA4 6JQ",
+            price: 10,
+            date_time: "2024-10-15T12:00:00",
+            description: "A clash between two top half contenders",
+            available_tickets: 6500,
         };
         return (0, supertest_1.default)(app_1.default)
             .post("/api/clubs/1/events")
@@ -959,8 +960,8 @@ describe("POST /api/clubs/:clubId/events", () => {
     });
     test("POST 400: Incomplete request body provided", () => {
         const newEvent = {
-            "title": "Wealdstone F.C. vs Bilston Town F.C.",
-            "location": "Grosvenor Vale, Ruislip, West London, HA4 6JQ",
+            title: "Wealdstone F.C. vs Bilston Town F.C.",
+            location: "Grosvenor Vale, Ruislip, West London, HA4 6JQ",
         };
         return (0, supertest_1.default)(app_1.default)
             .post("/api/clubs/1/events")
@@ -972,12 +973,12 @@ describe("POST /api/clubs/:clubId/events", () => {
     });
     test("POST 400: Invalid input type on a field in the request body", () => {
         const newEvent = {
-            "title": 44,
-            "location": "Grosvenor Vale, Ruislip, West London, HA4 6JQ",
-            "price": 10,
-            "date_time": "2024-10-15T12:00:00",
-            "description": "A clash between two top half contenders",
-            "available_tickets": 6500
+            title: 44,
+            location: "Grosvenor Vale, Ruislip, West London, HA4 6JQ",
+            price: 10,
+            date_time: "2024-10-15T12:00:00",
+            description: "A clash between two top half contenders",
+            available_tickets: 6500,
         };
         return (0, supertest_1.default)(app_1.default)
             .post("/api/clubs/1/events")
@@ -990,13 +991,13 @@ describe("POST /api/clubs/:clubId/events", () => {
     });
     test("POST 201: should only post with the correct properties when foreign properties are added", () => {
         const newEvent = {
-            "title": "Wealdstone F.C. vs Bilston Town F.C.",
-            "location": "Grosvenor Vale, Ruislip, West London, HA4 6JQ",
-            "price": 10,
-            "date_time": "2024-10-15T12:00:00",
-            "description": "A clash between two top half contenders",
-            "available_tickets": 6500,
-            "added_property": "banana"
+            title: "Wealdstone F.C. vs Bilston Town F.C.",
+            location: "Grosvenor Vale, Ruislip, West London, HA4 6JQ",
+            price: 10,
+            date_time: "2024-10-15T12:00:00",
+            description: "A clash between two top half contenders",
+            available_tickets: 6500,
+            added_property: "banana",
         };
         return (0, supertest_1.default)(app_1.default)
             .post("/api/clubs/1/events")
@@ -1011,7 +1012,7 @@ describe("POST /api/clubs/:clubId/events", () => {
 describe("PATCH /api/clubs/:clubId/events/:eventId", () => {
     test("PATCH 200: should update fields when provided with new, valid properties", () => {
         const updatedEvent = {
-            "available_tickets": 6500
+            available_tickets: 6500,
         };
         return (0, supertest_1.default)(app_1.default)
             .patch("/api/clubs/1/events/5")
@@ -1023,7 +1024,7 @@ describe("PATCH /api/clubs/:clubId/events/:eventId", () => {
     });
     test("PATCH 400: Invalid patch object input", () => {
         const updatedEvent = {
-            "title": 44
+            title: 44,
         };
         return (0, supertest_1.default)(app_1.default)
             .patch("/api/clubs/1/events/5")
@@ -1036,7 +1037,7 @@ describe("PATCH /api/clubs/:clubId/events/:eventId", () => {
     });
     test("PATCH 404: Club ID does not exist in the database", () => {
         const updatedEvent = {
-            "available_tickets": 6500
+            available_tickets: 6500,
         };
         return (0, supertest_1.default)(app_1.default)
             .patch("/api/clubs/777/events/5")
@@ -1048,7 +1049,7 @@ describe("PATCH /api/clubs/:clubId/events/:eventId", () => {
     });
     test("PATCH 404: Event ID does not exist in the database", () => {
         const updatedEvent = {
-            "available_tickets": 6500
+            available_tickets: 6500,
         };
         return (0, supertest_1.default)(app_1.default)
             .patch("/api/clubs/1/events/555")
@@ -1060,7 +1061,7 @@ describe("PATCH /api/clubs/:clubId/events/:eventId", () => {
     });
     test("PATCH 400: Invalid Club ID input provided", () => {
         const updatedEvent = {
-            "available_tickets": 6500
+            available_tickets: 6500,
         };
         return (0, supertest_1.default)(app_1.default)
             .patch("/api/clubs/notanid/events/5")
@@ -1073,7 +1074,7 @@ describe("PATCH /api/clubs/:clubId/events/:eventId", () => {
     });
     test("PATCH 400: Invalid Event ID input provided", () => {
         const updatedEvent = {
-            "available_tickets": 6500
+            available_tickets: 6500,
         };
         return (0, supertest_1.default)(app_1.default)
             .patch("/api/clubs/1/events/notanid")
@@ -1205,33 +1206,33 @@ describe("GET /api/fans/:fanId/orders/:orderId", () => {
 describe("POST /api/fans/:fanId/orders", () => {
     test("POST 201: should create a new order tied to the fan posting", () => {
         const newOrder = {
-            "event_id": "1",
-            "order_date": "2024-10-26T11:46:00.000Z",
-            "quantity": 1,
-            "total_price": 10,
-            "order_status": "Pending",
-            "add_to_calendar": false,
+            event_id: "1",
+            order_date: "2024-10-26T11:46:00.000Z",
+            quantity: 1,
+            total_price: 10,
+            order_status: "Pending",
+            add_to_calendar: false,
         };
         return (0, supertest_1.default)(app_1.default)
             .post("/api/fans/1/orders")
             .send(newOrder)
             .expect(201)
             .then((response) => {
-            expect(response.body.user_id).toBe(1);
-            expect(response.body.event_id).toBe(1);
-            expect(typeof response.body.order_id).toBe("number");
-            expect(typeof response.body.order_date).toBe("string");
-            expect(typeof response.body.quantity).toBe("number");
-            expect(typeof response.body.total_price).toBe("string");
-            expect(typeof response.body.order_status).toBe("string");
+            expect(response.body.order.user_id).toBe(1);
+            expect(response.body.order.event_id).toBe(1);
+            expect(typeof response.body.order.order_id).toBe("number");
+            expect(typeof response.body.order.order_date).toBe("string");
+            expect(typeof response.body.order.quantity).toBe("number");
+            expect(typeof response.body.order.total_price).toBe("string");
+            expect(typeof response.body.order.order_status).toBe("string");
         });
     });
     test("POST 400: Incomplete request body provided", () => {
         const newOrder = {
-            "event_id": "1",
-            "order_date": "2024-10-26T11:46:00.000Z",
-            "quantity": 1,
-            "total_price": 10
+            event_id: "1",
+            order_date: "2024-10-26T11:46:00.000Z",
+            quantity: 1,
+            total_price: 10,
         };
         return (0, supertest_1.default)(app_1.default)
             .post("/api/fans/2/orders")
@@ -1243,11 +1244,11 @@ describe("POST /api/fans/:fanId/orders", () => {
     });
     test("POST 400: Invalid input type on a field in the request body", () => {
         const newOrder = {
-            "event_id": "1",
-            "order_date": "2024-10-26T11:46:00.000Z",
-            "quantity": 1,
-            "total_price": 10,
-            "order_status": 55
+            event_id: "1",
+            order_date: "2024-10-26T11:46:00.000Z",
+            quantity: 1,
+            total_price: 10,
+            order_status: 55,
         };
         return (0, supertest_1.default)(app_1.default)
             .post("/api/fans/2/orders")
@@ -1260,12 +1261,12 @@ describe("POST /api/fans/:fanId/orders", () => {
     });
     test("POST 201: should only post with the correct properties when foreign properties are added", () => {
         const newOrder = {
-            "event_id": "1",
-            "order_date": "2024-10-26T11:46:00.000Z",
-            "quantity": 1,
-            "total_price": 10,
-            "order_status": "Pending",
-            "added_property": "banana"
+            event_id: "1",
+            order_date: "2024-10-26T11:46:00.000Z",
+            quantity: 1,
+            total_price: 10,
+            order_status: "Pending",
+            added_property: "banana",
         };
         return (0, supertest_1.default)(app_1.default)
             .post("/api/fans/2/orders")
@@ -1280,7 +1281,7 @@ describe("POST /api/fans/:fanId/orders", () => {
 describe("PATCH /api/fans/:fanId/orders/:orderId", () => {
     test("PATCH 200: should update fields when provided with new, valid properties", () => {
         const updatedOrder = {
-            "order_status": "Completed"
+            order_status: "Completed",
         };
         return (0, supertest_1.default)(app_1.default)
             .patch("/api/fans/2/orders/2")
@@ -1292,7 +1293,7 @@ describe("PATCH /api/fans/:fanId/orders/:orderId", () => {
     });
     test("PATCH 400: Invalid patch object input", () => {
         const updatedOrder = {
-            "order_status": 44
+            order_status: 44,
         };
         return (0, supertest_1.default)(app_1.default)
             .patch("/api/fans/2/orders/2")
@@ -1305,7 +1306,7 @@ describe("PATCH /api/fans/:fanId/orders/:orderId", () => {
     });
     test("PATCH 404: Fan ID does not exist in the database", () => {
         const updatedOrder = {
-            "order_status": "Completed"
+            order_status: "Completed",
         };
         return (0, supertest_1.default)(app_1.default)
             .patch("/api/fans/222/orders/2")
@@ -1317,7 +1318,7 @@ describe("PATCH /api/fans/:fanId/orders/:orderId", () => {
     });
     test("PATCH 404: Order ID does not exist in the database", () => {
         const updatedOrder = {
-            "order_status": "Completed"
+            order_status: "Completed",
         };
         return (0, supertest_1.default)(app_1.default)
             .patch("/api/fans/2/orders/222")
@@ -1329,7 +1330,7 @@ describe("PATCH /api/fans/:fanId/orders/:orderId", () => {
     });
     test("PATCH 400: Invalid Fan ID input provided", () => {
         const updatedOrder = {
-            "order_status": "Completed"
+            order_status: "Completed",
         };
         return (0, supertest_1.default)(app_1.default)
             .patch("/api/fans/notanid/orders/2")
@@ -1342,7 +1343,7 @@ describe("PATCH /api/fans/:fanId/orders/:orderId", () => {
     });
     test("PATCH 400: Invalid Order ID input provided", () => {
         const updatedOrder = {
-            "order_status": "Completed"
+            order_status: "Completed",
         };
         return (0, supertest_1.default)(app_1.default)
             .patch("/api/fans/2/orders/notanid")
