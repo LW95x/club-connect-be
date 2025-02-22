@@ -26,6 +26,6 @@ const handlePsqlErrors = (err, req, res, next) => {
 };
 exports.handlePsqlErrors = handlePsqlErrors;
 const handleServerErrors = (err, req, res, next) => {
-    res.status(500).send({ msg: "Internal Server Error" });
+    res.status(500).send({ msg: "Internal Server Error", error: err.message });
 };
 exports.handleServerErrors = handleServerErrors;

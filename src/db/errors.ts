@@ -45,5 +45,5 @@ export const handleServerErrors = (
   res: Response,
   next: NextFunction
 ) => {
-  res.status(500).send({ msg: "Internal Server Error" });
+  res.status(500).send({ msg: "Internal Server Error", error: err.message });
 };
